@@ -20,7 +20,6 @@ import (
 	"io"
 	"log"
 	"os"
-	"os/user"
 	"path/filepath"
 	"strings"
 
@@ -41,9 +40,9 @@ func main() {
 	}
 	if *mflag {
 		if *sfLoc == "" {
-			usr, err := user.Current()
+			cacheDir, err := os.UserCacheDir()
 			if err == nil {
-				*sfLoc = filepath.Join(usr.HomeDir, "siegfried", "default.sig")
+				*sfLoc = filepath.Join(cacheDir, "siegfried", "default.sig")
 			}
 		}
 		if _, err := os.Stat(*sfLoc); err != nil {
@@ -77,10 +76,10 @@ func main() {
 
 func mail(p string) error {
 	f, err := os.Open(p)
-	defer f.Close()
 	if err != nil {
 		return err
 	}
+	defer f.Close()
 	v, err := vmbx.New(f)
 	if err != nil {
 		return nil // not vmbx
@@ -100,10 +99,10 @@ func mail(p string) error {
 
 func dump(p string) error {
 	f, err := os.Open(p)
-	defer f.Close()
 	if err != nil {
 		return err
 	}
+	defer f.Close()
 	v, err := vmbx.New(f)
 	if err != nil {
 		return nil // not vmbx

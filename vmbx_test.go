@@ -37,10 +37,10 @@ func TestNew(t *testing.T) {
 		return
 	}
 	f, err := os.Open("test.vmbx")
-	defer f.Close()
 	if err != nil {
 		t.Fatalf("failed to open test file got %v", err)
 	}
+	defer f.Close()
 	v, err := New(f)
 	if err != nil {
 		t.Fatalf("failed to parse vmbx file got %v", err)
@@ -65,10 +65,10 @@ func TestMail(t *testing.T) {
 		return
 	}
 	f, err := os.Open("test.vmbx")
-	defer f.Close()
 	if err != nil {
 		t.Fatalf("failed to open test file got %v", err)
 	}
+	defer f.Close()
 	v, err := New(f)
 	if err != nil {
 		t.Fatalf("failed to parse vmbx file got %v", err)
@@ -85,10 +85,10 @@ func TestEmpty(t *testing.T) {
 		return
 	}
 	f, err := os.Open("test_empty.vmbx")
-	defer f.Close()
 	if err != nil {
 		t.Fatalf("failed to open test file got %v", err)
 	}
+	defer f.Close()
 	v, err := New(f)
 	if err != nil {
 		t.Fatalf("failed to parse vmbx file got %v", err)
